@@ -56,6 +56,25 @@ button:hover {
         </div>
         <button id="generateQuoteButton">Generate Quote</button>
     </div>
-    <script></script>
+    <script>
+const quotes = [
+    "The only way to do great work is to love what you do. – Steve Jobs",
+    "Life is what happens when you're busy making other plans. – John Lennon",
+    "Get busy living or get busy dying. – Stephen King",
+    "The purpose of our lives is to be happy. – Dalai Lama",
+    "You only live once, but if you do it right, once is enough. – Mae West"
+];
+
+function getRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    return quotes[randomIndex];
+}
+
+document.getElementById('generateQuoteButton').addEventListener('click', () => {
+    const quote = getRandomQuote();
+    document.getElementById('quoteText').textContent = quote;
+});
+
+    </script>
 </body>
 </html>
