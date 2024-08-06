@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quote Generator</title>
     <style>
         body {
@@ -31,7 +33,13 @@
     color: #333;
 }
 
-button {
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quoteButton {
     padding: 10px 20px;
     font-size: 1em;
     border: none;
@@ -42,7 +50,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.quoteButton:hover {
     background-color: #0056b3;
 }
 
@@ -52,27 +60,46 @@ button:hover {
     <div class="container">
         <h1>Quote Generator</h1>
         <div id="quoteContainer">
-            <p id="quoteText">Click the button to generate a quote!</p>
+            <p id="quoteText">Select a category to get a quote!</p>
         </div>
-        <button id="generateQuoteButton">Generate Quote</button>
+        <div class="button-container">
+            <button class="quoteButton" data-type="happy">Happy Quotes</button>
+            <button class="quoteButton" data-type="funny">Funny Quotes</button>
+            <button class="quoteButton" data-type="inspirational">Inspirational Quotes</button>
+        </div>
     </div>
     <script>
-const quotes = [
-    "The only way to do great work is to love what you do. – Steve Jobs",
-    "Life is what happens when you're busy making other plans. – John Lennon",
-    "Get busy living or get busy dying. – Stephen King",
-    "The purpose of our lives is to be happy. – Dalai Lama",
-    "You only live once, but if you do it right, once is enough. – Mae West"
-];
+        // Arrays of quotes for different categories
+const quotes = {
+    happy: [
+        "The best way to cheer yourself up is to try to cheer somebody else up. – Mark Twain",
+        "Happiness is not something ready-made. It comes from your own actions. – Dalai Lama",
+        "For every minute you are angry you lose sixty seconds of happiness. – Ralph Waldo Emerson"
+    ],
+    funny: [
+        "I'm on a whiskey diet. I've lost three days already. – Tommy Cooper",
+        "I told my wife she was drawing her eyebrows too high. She looked surprised. – Unknown",
+        "Why don’t scientists trust atoms? Because they make up everything. – Unknown"
+    ],
+    inspirational: [
+        "The only way to do great work is to love what you do. – Steve Jobs",
+        "Life is what happens when you're busy making other plans. – John Lennon",
+        "The purpose of our lives is to be happy. – Dalai Lama"
+    ]
+};
 
-function getRandomQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    return quotes[randomIndex];
+function getRandomQuote(type) {
+    const quotesArray = quotes[type];
+    const randomIndex = Math.floor(Math.random() * quotesArray.length);
+    return quotesArray[randomIndex];
 }
 
-document.getElementById('generateQuoteButton').addEventListener('click', () => {
-    const quote = getRandomQuote();
-    document.getElementById('quoteText').textContent = quote;
+document.querySelectorAll('.quoteButton').forEach(button => {
+    button.addEventListener('click', (event) => {
+        const quoteType = event.target.getAttribute('data-type');
+        const quote = getRandomQuote(quoteType);
+        document.getElementById('quoteText').textContent = quote;
+    });
 });
 
     </script>
